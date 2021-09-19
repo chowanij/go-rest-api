@@ -9,13 +9,19 @@ import (
 	transportHttp "github.com/chowanij/go-rest-api/internal/transport/http"
 )
 
+// App - structure for storing envs and settings
 type App struct{}
 
+// Run - app setup
 func (app *App) Run() error {
 	fmt.Println("Setting up out application")
 
 	db, err := database.NewDatabaseConnection()
+	if err != nil {
+		return err
+	}
 
+	err = database.MigrateDB(db)
 	if err != nil {
 		return err
 	}
