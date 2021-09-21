@@ -1,6 +1,8 @@
 package comment
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 // Service - service structfor our comment service
 type Service struct {
@@ -74,7 +76,8 @@ func (s *Service) UpdateComment(ID uint, newComment Comment) (Comment, error) {
 
 // DeleteComment - deletes a comment from the database by ID
 func (s *Service) DeleteComment(ID uint) error {
-	if result := s.DB.Delete(&Comment{}, ID); result.Error != nil {
+	var comment Comment
+	if result := s.DB.Delete(&comment, ID); result.Error != nil {
 		return result.Error
 	}
 	return nil
