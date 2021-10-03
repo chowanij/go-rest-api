@@ -1,0 +1,5 @@
+export DB_USERNAME=doadmin
+export DB_PASSWORD=AYkZnFVb0o8IrffZ hide
+export DB_HOST=db-postgresql-fra1-47322-do-user-9918904-0.b.db.ondigitalocean.com
+export DB_PORT=25060
+export DB_TABLE=defaultdb

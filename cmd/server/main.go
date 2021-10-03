@@ -1,20 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/chowanij/go-rest-api/internal/comment"
 	"github.com/chowanij/go-rest-api/internal/database"
 	transportHttp "github.com/chowanij/go-rest-api/internal/transport/http"
+	log "github.com/sirupsen/logrus"
 )
 
-// App - structure for storing envs and settings
-type App struct{}
+// App - structure for storing application information
+type App struct{
+	Name string
+	Version string
+}
 
 // Run - app setup
 func (app *App) Run() error {
-	fmt.Println("Setting up out application")
+	log.Info("Setting up out application")
 
 	db, err := database.NewDatabaseConnection()
 	if err != nil {
@@ -32,7 +35,7 @@ func (app *App) Run() error {
 	handler.SetupRoutes()
 
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
-		fmt.Println("Failed to set up server")
+		log.Error("Failed to set up server")
 		return err
 	}
 
@@ -40,11 +43,19 @@ func (app *App) Run() error {
 }
 
 func main() {
-	fmt.Println("GOLANG service")
+	app := App{
+		Name: "Commentig app",
+		Version: "1.0.0",
+	}
 
-	app := App{}
+	log.SetFormatter(&log.JSONFormatter{})
+	log.WithFields(
+		log.Fields{
+			"AppName":    app.Name,
+			"AppVersion": app.Version,
+		}).Info("Setting Up Our APP")
 	if err := app.Run(); err != nil {
-		fmt.Println("error starting up our app")
-		fmt.Println(err)
+		log.Error("error starting up our app")
+		log.Fatal(err)
 	}
 }
