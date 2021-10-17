@@ -19,4 +19,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 )
 
-require golang.org/x/sys v0.0.0-20210330210617-4fbd30eecc44 // indirect
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	golang.org/x/sys v0.0.0-20210330210617-4fbd30eecc44 // indirect
+)
